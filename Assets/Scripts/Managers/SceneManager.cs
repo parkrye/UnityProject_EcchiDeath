@@ -14,7 +14,7 @@ public class SceneManager : BaseManager
     {
         base.Initialize();
 
-        _loadingUI = GameManager.Pool.GetUI<LoadingUI>("UI/LoadingUI");
+        _loadingUI = GameManager.Pool.GetUI<LoadingUI>("UIs/LoadingUI");
         GameManager.Pool.ReleaseUI(_loadingUI);
     }
 
@@ -23,7 +23,7 @@ public class SceneManager : BaseManager
         get
         {
             if (!_curScene)
-                _curScene = GameObject.FindObjectOfType<BaseScene>();
+                _curScene = FindObjectOfType<BaseScene>();
 
             return _curScene;
         }

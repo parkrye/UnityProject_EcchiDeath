@@ -10,6 +10,7 @@ public class GameManager : BaseManager
     private static DataManager _dataManager;
     private static SceneManager _sceneManager;
     private static AudioManager _audioManager;
+    private static UIManager _uiManager;
 
     public static GameManager Instance { get { return _instance; } }
     public static PoolManager Pool { get { return _poolManager; } }
@@ -17,6 +18,7 @@ public class GameManager : BaseManager
     public static DataManager Data { get { return _dataManager; } }
     public static SceneManager Scene { get { return _sceneManager; } }
     public static AudioManager Audio { get { return _audioManager; } }
+    public static UIManager UI { get { return _uiManager; } }
 
     private void Awake()
     {
@@ -70,5 +72,11 @@ public class GameManager : BaseManager
         audioObj.transform.parent = transform;
         _audioManager = audioObj.AddComponent<AudioManager>();
         _audioManager.Initialize();
+
+        GameObject uiObj = new GameObject();
+        uiObj.name = "UIManager";
+        uiObj.transform.parent = transform;
+        _uiManager = uiObj.AddComponent<UIManager>();
+        _uiManager.Initialize();
     }
 }

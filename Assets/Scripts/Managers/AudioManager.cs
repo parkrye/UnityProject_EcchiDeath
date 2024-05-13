@@ -3,9 +3,10 @@ using UnityEngine.Audio;
 public class AudioManager : BaseManager
 {
     private AudioMixer _audioMixer;
-
-    private void Awake()
+    public override void Initialize()
     {
+        base.Initialize();
+
         _audioMixer = GameManager.Resource.Load<AudioMixer>("Audio/AudioMixer");
     }
 
