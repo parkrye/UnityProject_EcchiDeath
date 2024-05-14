@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
+using static System.Collections.Specialized.BitVector32;
 
 public enum Talker
 {
@@ -11,10 +13,12 @@ public enum Talker
 public class MainUI : SceneUI
 {
     private (Sprite icon, string name)[] _talker;
-    private Animator _targetAnimation;
+    private Animator _animator;
 
     public UnityEvent OnTalkEvent = new UnityEvent();
     public UnityEvent<bool> OnJudgeEvent = new UnityEvent<bool>();
+
+    private bool _isShowEnd = false;
 
     protected override void AwakeSelf()
     {
@@ -26,10 +30,7 @@ public class MainUI : SceneUI
             (GameManager.Resource.Load<Sprite>("Sprites/Main/Hanako"), "하나코"),
         };
 
-        if (GetRect("TargetSection", out var tSection))
-        {
-            _targetAnimation = tSection.GetComponent<Animator>();
-        }
+        _animator = GetComponent<Animator>();
 
         if (GetButton("PassButton", out var pButton))
         {
@@ -41,81 +42,23 @@ public class MainUI : SceneUI
         }
         if (GetButton("TalkButton", out var tButton))
         {
-            tButton.onClick.AddListener(() =>
-            {
-                tButton.interactable = false;
-                OnTalkEvent?.Invoke();
-                tButton.interactable = true;
-            });
+            tButton.onClick.AddListener(() => OnTalkEvent?.Invoke());
         }
     }
 
     public void InitUI()
     {
-        if (GetRect("StateSection", out var state))
-        {
-            state.gameObject.SetActive(false);
-        }
+        _animator.Play("InitAnim");
 
-        if (GetRect("Timer", out var timer))
+        if (GetText("DayText", out var dText))
         {
-            timer.gameObject.SetActive(false);
-        }
-
-        _targetAnimation.Play("Next");
-
-        if (GetRect("TargetSection", out var target))
-        {
-            target.gameObject.SetActive(false);
-        }
-
-        if (GetImage("TalkerIcon", out var tImage))
-        {
-            tImage.enabled = false;
-        }
-        if (GetText("TalkText", out var tText))
-        {
-            tText.text = string.Empty;
-        }
-
-        if (GetButton("TalkButton", out var tButton))
-        {
-            tButton.gameObject.SetActive(true);
+            dText.text = $"{GameManager.Data.PlayData.Date}일";
         }
     }
 
     public void OnStartGame(int targetCount)
     {
-        if (GetRect("StateSection", out var state))
-        {
-            state.gameObject.SetActive(true);
-        }
-        if (GetText("DayText", out var dText))
-        {
-            dText.text = $"{GameManager.Data.PlayData.Date}일";
-        }
-        if (GetText("PassCountText", out var pcText))
-        {
-            pcText.text = "보류 0";
-        }
-        if (GetText("DeathCountText", out var dcText))
-        {
-            dcText.text = "사형 0";
-        }
-        if (GetText("RemainCountText", out var rcText))
-        {
-            rcText.text = $"잔여 {targetCount}";
-        }
-
-        if (GetRect("Timer", out var timer))
-        {
-            timer.gameObject.SetActive(true);
-        }
-
-        if (GetRect("TargetSection", out var target))
-        {
-            target.gameObject.SetActive(true);
-        }
+        _animator.Play("StartAnim");
 
         if (GetImage("TalkerIcon", out var tImage))
         {
@@ -127,51 +70,18 @@ public class MainUI : SceneUI
             tText.text = string.Empty;
         }
 
-        if (GetButton("TalkButton", out var tButton))
-        {
-            tButton.gameObject.SetActive(false);
-        }
+        ModifyCounter(0, 0, targetCount);
     }
 
     public void OnEndGame()
     {
-        if (GetRect("StateSection", out var state))
-        {
-            state.gameObject.SetActive(false);
-        }
-
-        if (GetRect("Timer", out var timer))
-        {
-            timer.gameObject.SetActive(false);
-        }
-
-        _targetAnimation.Play("Next");
-
-        if (GetRect("TargetSection", out var target))
-        {
-            target.gameObject.SetActive(false);
-        }
-
-        if (GetImage("TalkerIcon", out var tImage))
-        {
-            tImage.enabled = false;
-        }
-        if (GetText("TalkText", out var tText))
-        {
-            tText.text = string.Empty;
-        }
-
-        if (GetButton("TalkButton", out var tButton))
-        {
-            tButton.gameObject.SetActive(true);
-        }
+        _animator.Play("EndAnim");
     }
 
     public void Talk((Talker talker, string content) data)
     {
         if (GetImage("TalkerIcon", out var tImage))
         {
-            tImage.enabled = true;
             tImage.sprite = _talker[(int)data.talker].icon;
         }
         if (GetText("TalkText", out var tText))
@@ -196,8 +106,10 @@ public class MainUI : SceneUI
         }
     }
 
-    public void ShowTarget(TargetData targetData)
+    public void ShowNextTarget(TargetData targetData, bool playShowAnim = false)
     {
+        if (playShowAnim)
+            _animator.Play("ShowAnim");
 
         if (GetText("TargetNameText", out var tnText))
         {
@@ -208,6 +120,14 @@ public class MainUI : SceneUI
         {
             tImage.sprite = GameManager.Data.Sprites[targetData.Icon];
         }
+        if (playShowAnim == false)
+        {
+            if (GetImage("TargetIconSub", out var tsImage))
+            {
+                tsImage.sprite = GameManager.Data.Sprites[targetData.Icon];
+            }
+        }
+        StartCoroutine(ShowTargetEvent(targetData.Icon));
 
         if (GetText("TargetContentText", out var tcText))
         {
@@ -218,7 +138,21 @@ public class MainUI : SceneUI
             }
             tcText.text = result.ToString();
         }
+    }
 
-        _targetAnimation.Play("Show");
+    private IEnumerator ShowTargetEvent(int icon)
+    {
+        yield return new WaitUntil(() => _isShowEnd);
+        _isShowEnd = false;
+
+        if (GetImage("TargetIconSub", out var tsImage))
+        {
+            tsImage.sprite = GameManager.Data.Sprites[icon];
+        }
+    }
+
+    private void OnShowEndEvent()
+    {
+        _isShowEnd = true;
     }
 }

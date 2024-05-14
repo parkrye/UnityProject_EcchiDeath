@@ -73,7 +73,7 @@ public class MainScene : BaseScene
                 return;
             }
             _mainUI.OnStartGame(_targets.Length);
-            _mainUI.ShowTarget(_targets[_targetIndex]);
+            _mainUI.ShowNextTarget(_targets[_targetIndex]);
             _contentIndex = 0;
             return;
         }
@@ -84,6 +84,14 @@ public class MainScene : BaseScene
 
     private void JudgeAction(bool isGuilty)
     {
+        if (_targetIndex < 0 || _targetIndex >= _targets.Length)
+        {
+            _eventIndex = (int)EventType.DayEnd;
+            _mainUI.OnEndGame();
+            TalkAction();
+            return;
+        }
+
         if (isGuilty)
         {
             _deathCount++;
@@ -107,7 +115,7 @@ public class MainScene : BaseScene
         }
         else
         {
-            _mainUI.ShowTarget(_targets[_targetIndex]);
+            _mainUI.ShowNextTarget(_targets[_targetIndex], true);
         }
     }
 }
