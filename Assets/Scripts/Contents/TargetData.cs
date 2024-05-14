@@ -4,18 +4,21 @@ public class TargetData
 {
     public string Name { get; private set; }
     public int[] Elements { get; private set; }
+    public bool IsGuilty { get; private set; }
 
-    public void Init(string name, int count = 0, int rand = 0)
+    public TargetData(int count = 0)
     {
-        Name = name;
-        if (rand > 0)
-            count += Random.Range(0, rand);
+        Name = RandomNaming.GetName();
 
-        Elements = new int[count];
-        var selects = GameData.GetRandomJudgeElementIndex(count);
-        for (int i = 0; i < selects.Length; i++)
+        count = Random.Range(count, count * 2);
+
+        Elements = GameData.GetRandomJudgeElementIndex(count);
+
+        var guiltyCount = 0;
+        foreach (var element in Elements)
         {
-            Elements[i] = selects[i];
+            guiltyCount += GameData.JudgeElements[element].EcchiPoint;
         }
+        IsGuilty = guiltyCount > 0;
     }
 }

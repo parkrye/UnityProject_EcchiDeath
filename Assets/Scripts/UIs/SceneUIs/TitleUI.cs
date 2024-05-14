@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TitleUI : SceneUI
 {
@@ -15,7 +15,7 @@ public class TitleUI : SceneUI
             {
                 var spUI = GameManager.UI.ShowPopupUI<SelectPopUpUI>("UIs/SelectPopUpUI");
                 spUI.Init(
-                    "Á¤¸»·Î Á¾·áÇÒ °Å¾ß?",
+                    "ì •ë§ë¡œ ì¢…ë£Œí•  ê±°ì•¼?",
                     () => Application.Quit(),
                     () => GameManager.UI.ClosePopupUI());
             });

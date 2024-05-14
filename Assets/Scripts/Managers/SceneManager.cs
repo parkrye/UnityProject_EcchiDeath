@@ -38,7 +38,7 @@ public class SceneManager : BaseManager
     {
         ReadyToPlay = false;
         GameManager.Pool.GetUI(_loadingUI);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
         while (!oper.isDone)
         {
@@ -54,8 +54,10 @@ public class SceneManager : BaseManager
             }
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         GameManager.Pool.ReleaseUI(_loadingUI);
         ReadyToPlay = true;
+
+        CurScene.StartScenePlayables();
     }
 }

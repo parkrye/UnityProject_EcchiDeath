@@ -1,11 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+Ôªøusing UnityEngine;
+using UnityEngine.Events;
+
+public enum Talker
+{
+    Koharu,
+    Hanako,
+}
 
 public class MainUI : SceneUI
 {
     private (Sprite icon, string name)[] _talker;
     private Animator _targetAnimation;
+
+    public UnityEvent OnTalkEvent = new UnityEvent();
+    public UnityEvent<bool> OnJudgeEvent = new UnityEvent<bool>();
 
     protected override void AwakeSelf()
     {
@@ -13,29 +21,51 @@ public class MainUI : SceneUI
 
         _talker = new(Sprite icon, string name)[]
         {
-            (GameManager.Resource.Load<Sprite>("Sprites/Main/Koharu"), "ƒ⁄«œ∑Á"),
-            (GameManager.Resource.Load<Sprite>("Sprites/Main/Hanako"), "«œ≥™ƒ⁄"),
+            (GameManager.Resource.Load<Sprite>("Sprites/Main/Koharu"), "ÏΩîÌïòÎ£®"),
+            (GameManager.Resource.Load<Sprite>("Sprites/Main/Hanako"), "ÌïòÎÇòÏΩî"),
         };
 
         if (GetRect("TargetSection", out var tSection))
         {
             _targetAnimation = tSection.GetComponent<Animator>();
         }
+
+        if (GetButton("PassButton", out var pButton))
+        {
+            pButton.onClick.AddListener(() => OnJudgeEvent?.Invoke(false));
+        }
+        if (GetButton("DeathButton", out var dButton))
+        {
+            dButton.onClick.AddListener(() => OnJudgeEvent?.Invoke(true));
+        }
+        if (GetButton("TalkButton", out var tButton))
+        {
+            tButton.onClick.AddListener(() =>
+            {
+                tButton.interactable = false;
+                OnTalkEvent?.Invoke();
+                tButton.interactable = true;
+            });
+        }
     }
 
-    public void InitUI(int date)
+    public void InitUI()
     {
-        if (GetText("DayText", out var dText))
+        if (GetRect("StateSection", out var state))
         {
-            dText.text = $"{date}¿œ¬∞";
+            state.gameObject.SetActive(false);
         }
-        if (GetText("PassCountText", out var pcText))
+
+        if (GetRect("Timer", out var timer))
         {
-            pcText.text = "∫∏∑˘ 0";
+            timer.gameObject.SetActive(false);
         }
-        if (GetText("DeathCountText", out var dcText))
+
+        _targetAnimation.Play("Next");
+
+        if (GetRect("TargetSection", out var target))
         {
-            dcText.text = "ªÁ«¸ 0";
+            target.gameObject.SetActive(false);
         }
 
         if (GetImage("TalkerIcon", out var tImage))
@@ -47,16 +77,126 @@ public class MainUI : SceneUI
             tText.text = string.Empty;
         }
 
-        _targetAnimation.Play("Next");
+        if (GetButton("TalkButton", out var tButton))
+        {
+            tButton.gameObject.SetActive(true);
+        }
     }
 
-    public void OnStartGame()
+    public void OnStartGame(int targetCount)
     {
+        if (GetRect("StateSection", out var state))
+        {
+            state.gameObject.SetActive(true);
+        }
+        if (GetText("DayText", out var dText))
+        {
+            dText.text = $"{GameManager.Data.PlayData.Date}Ïùº";
+        }
+        if (GetText("PassCountText", out var pcText))
+        {
+            pcText.text = "Î≥¥Î•ò 0";
+        }
+        if (GetText("DeathCountText", out var dcText))
+        {
+            dcText.text = "ÏÇ¨Ìòï 0";
+        }
+        if (GetText("RemainCountText", out var rcText))
+        {
+            rcText.text = $"ÏûîÏó¨ {targetCount}";
+        }
 
+        if (GetRect("Timer", out var timer))
+        {
+            timer.gameObject.SetActive(true);
+        }
+
+        if (GetRect("TargetSection", out var target))
+        {
+            target.gameObject.SetActive(true);
+        }
+
+        if (GetImage("TalkerIcon", out var tImage))
+        {
+            tImage.enabled = true;
+            tImage.sprite = _talker[(int)Talker.Koharu].icon;
+        }
+        if (GetText("TalkText", out var tText))
+        {
+            tText.text = string.Empty;
+        }
+
+        if (GetButton("TalkButton", out var tButton))
+        {
+            tButton.gameObject.SetActive(false);
+        }
     }
 
     public void OnEndGame()
     {
+        if (GetRect("StateSection", out var state))
+        {
+            state.gameObject.SetActive(false);
+        }
 
+        if (GetRect("Timer", out var timer))
+        {
+            timer.gameObject.SetActive(false);
+        }
+
+        _targetAnimation.Play("Next");
+
+        if (GetRect("TargetSection", out var target))
+        {
+            target.gameObject.SetActive(false);
+        }
+
+        if (GetImage("TalkerIcon", out var tImage))
+        {
+            tImage.enabled = false;
+        }
+        if (GetText("TalkText", out var tText))
+        {
+            tText.text = string.Empty;
+        }
+
+        if (GetButton("TalkButton", out var tButton))
+        {
+            tButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void Talk((Talker talker, string content) data)
+    {
+        if (GetImage("TalkerIcon", out var tImage))
+        {
+            tImage.enabled = true;
+            tImage.sprite = _talker[(int)data.talker].icon;
+        }
+        if (GetText("TalkText", out var tText))
+        {
+            tText.text = $"{_talker[(int)data.talker].name} : {data.content}";
+        }
+    }
+
+    public void ModifyCounter(int pass, int death, int remain)
+    {
+        if (GetText("PassCountText", out var pcText))
+        {
+            pcText.text = $"Î≥¥Î•ò {pass}";
+        }
+        if (GetText("DeathCountText", out var dcText))
+        {
+            dcText.text = $"ÏÇ¨Ìòï {death}";
+        }
+        if (GetText("RemainCountText", out var rcText))
+        {
+            rcText.text = $"ÏûîÏó¨ {remain}";
+        }
+    }
+
+    public void ShowTarget(TargetData targetData)
+    {
+        _targetAnimation.Play("Show");
     }
 }

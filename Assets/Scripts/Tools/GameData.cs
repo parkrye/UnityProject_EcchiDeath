@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class GameData
 {
-    public static List<JudgeElement> JudgeElements = new List<JudgeElement>();
+    public static readonly List<JudgeElement> JudgeElements = new List<JudgeElement>();
 
     public static int[] GetRandomJudgeElementIndex(int count)
     {

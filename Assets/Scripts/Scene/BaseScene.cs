@@ -10,4 +10,9 @@ public abstract class BaseScene : MonoBehaviour
     {
         StartCoroutine(LoadingRoutine());
     }
+
+    public virtual void StartScenePlayables()
+    {
+
+    }
 }

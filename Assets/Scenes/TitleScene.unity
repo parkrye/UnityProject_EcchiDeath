@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f53897bf9607d34e8d86ae017b85d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AreaVector: 2
+  AreaVector: 1
 --- !u!1 &581951653
 GameObject:
   m_ObjectHideFlags: 0
