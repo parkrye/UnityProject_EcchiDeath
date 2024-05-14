@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 using UnityEngine.Events;
 
 public enum Talker
@@ -197,6 +198,27 @@ public class MainUI : SceneUI
 
     public void ShowTarget(TargetData targetData)
     {
+
+        if (GetText("TargetNameText", out var tnText))
+        {
+            tnText.text = targetData.Name;
+        }
+
+        if (GetImage("TargetIcon", out var tImage))
+        {
+            tImage.sprite = GameManager.Data.Sprites[targetData.Icon];
+        }
+
+        if (GetText("TargetContentText", out var tcText))
+        {
+            var result = new StringBuilder();
+            foreach( var element in targetData.Elements)
+            {
+                result.AppendLine(GameData.JudgeElements[element].Name);
+            }
+            tcText.text = result.ToString();
+        }
+
         _targetAnimation.Play("Show");
     }
 }
