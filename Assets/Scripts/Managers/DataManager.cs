@@ -18,4 +18,12 @@ public class DataManager : BaseManager
 
         PlayData = GameManager.Resource.Load<PlayData>("PlayData");
     }
+
+    public void AddPlayerData(int date = 1, int passCount = 0, int deathCount = 0, int score = 0)
+    {
+        PlayData.Date += date;
+        PlayData.PassCount += passCount;
+        PlayData.DeathCount += deathCount;
+        PlayData.Score += score;
+    }
 }

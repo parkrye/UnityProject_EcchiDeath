@@ -16,7 +16,8 @@ public class PoolManager : MonoBehaviour
 
     public void Initialize()
     {
-        _canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        _canvasRoot = GameManager.Resource.Instantiate<Canvas>("UIs/BaseCanvas");
+        _canvasRoot.sortingOrder = 5;
         _canvasRoot.name = "CanvasRoot";
         _canvasRoot.transform.SetParent(transform, false);
     }
@@ -241,6 +242,7 @@ public class PoolManager : MonoBehaviour
                 CreateUIPool(key, prefab);
 
             GameObject obj = _poolDic[key].Get();
+            obj.transform.SetParent(_canvasRoot.transform, false);
             return obj as T;
         }
         else if (original is Component)
@@ -252,6 +254,7 @@ public class PoolManager : MonoBehaviour
                 CreateUIPool(key, component.gameObject);
 
             GameObject obj = _poolDic[key].Get();
+            obj.transform.SetParent(_canvasRoot.transform, false);
             return obj.GetComponent<T>();
         }
         else
@@ -272,6 +275,7 @@ public class PoolManager : MonoBehaviour
                 CreateUIPool(key, prefab);
 
             GameObject obj = _poolDic[key].Get();
+            obj.transform.SetParent(_canvasRoot.transform, false);
             return obj as T;
         }
         else if (original is Component)
@@ -283,6 +287,7 @@ public class PoolManager : MonoBehaviour
                 CreateUIPool(key, component.gameObject);
 
             GameObject obj = _poolDic[key].Get();
+            obj.transform.SetParent(_canvasRoot.transform, false);
             return obj.GetComponent<T>();
         }
         else

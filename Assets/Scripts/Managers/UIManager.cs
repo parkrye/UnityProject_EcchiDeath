@@ -1,50 +1,23 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIManager : BaseManager
 {
-    EventSystem eventSystem;
-    public Canvas sceneCanvas, popUpCanvas;
-    Stack<PopUpUI> popUpStack;
+    private EventSystem _eventSystem;
+    private Stack<PopUpUI> _popUpStack = new Stack<PopUpUI>();
 
     public override void Initialize()
     {
         base.Initialize();
 
-        eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
-        eventSystem.transform.parent = transform;
-    }
-
-    public void CreateSceneCanvas()
-    {
-        sceneCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
-        sceneCanvas.gameObject.name = "SceneCanvas";
-        sceneCanvas.sortingOrder = 1;
-    }
-
-    public void CreatePopupCanvas()
-    {
-        popUpCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
-        popUpCanvas.gameObject.name = "PopupCanvas";
-        popUpCanvas.sortingOrder = 5;
-
-        popUpStack = new Stack<PopUpUI>();
-    }
-
-    public T GetPlayerSceneUI<T>() where T : SceneUI
-    {
-        T ui = sceneCanvas.GetComponentInChildren<T>();
-        return ui;
+        _eventSystem = GameManager.Resource.Instantiate<EventSystem>("UIs/EventSystem");
+        _eventSystem.transform.parent = transform;
     }
 
     public T ShowPopupUI<T>(T popup) where T : PopUpUI
     {
         T ui = GameManager.Pool.GetUI<T>(popup);
-        ui.transform.SetParent(popUpCanvas.transform, false);
-
-        popUpStack.Push(ui);
-
+        _popUpStack.Push(ui);
         return ui;
     }
 
@@ -56,28 +29,6 @@ public class UIManager : BaseManager
 
     public void ClosePopupUI()
     {
-        GameManager.Pool.ReleaseUI(popUpStack.Pop());
-    }
-
-    public T ShowSceneUI<T>(T sceneUI, Transform parent = null) where T : SceneUI
-    {
-        T ui = GameManager.Pool.GetUI(sceneUI);
-        if (!parent)
-            ui.transform.SetParent(sceneCanvas.transform, false);
-        else
-            ui.transform.SetParent(parent, false);
-
-        return ui;
-    }
-
-    public T ShowSceneUI<T>(string path) where T : SceneUI
-    {
-        T ui = GameManager.Resource.Load<T>(path);
-        return ShowSceneUI(ui);
-    }
-
-    public void CloseSceneUI(SceneUI sceneUI)
-    {
-        GameManager.Pool.Release(sceneUI);
+        GameManager.Pool.ReleaseUI(_popUpStack.Pop());
     }
 }

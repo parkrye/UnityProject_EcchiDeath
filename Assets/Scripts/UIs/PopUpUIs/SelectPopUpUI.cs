@@ -14,7 +14,7 @@ public class SelectPopUpUI : PopUpUI
         if (GetButton("NoButton", out var nButton))
         {
             nButton.onClick.RemoveAllListeners();
-            yButton.onClick.AddListener(noAction);
+            nButton.onClick.AddListener(noAction);
         }
     }
 }
