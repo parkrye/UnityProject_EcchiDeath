@@ -12,7 +12,7 @@ public class TargetData
         Name = RandomNaming.GetName();
         Icon = Random.Range(0, GameManager.Data.Sprites.Length);
 
-        count = Random.Range(count, count * 2);
+        count = Random.Range((int)(count * 0.5f), count * 2);
         Elements = GameData.GetRandomJudgeElementIndex(count);
 
         var guiltyCount = 0;

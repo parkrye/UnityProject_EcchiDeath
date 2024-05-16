@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5208ea8879c1d468f08a454c790321, type: 3}
+  m_Name: 02_DayEnd_Good
+  m_EditorClassIdentifier: 
+  Talkers: 00000000010000000100000000000000020000000000000002000000020000000000000002000000000000000100000000000000
+  Contents:
+  - "\uD6C4\uC6B0...\uD798\uB4E4\uC5B4\uB77C..."
+  - "\uC815\uB9D0 \uACE0\uC0DD \uB9CE\uC558\uC5B4\uC694"
+  - "\uADF8\uB7FC \uC0C1\uC73C\uB85C \uB9C8\uC0AC\uC9C0\uB97C \uD574\uC904\uAC8C\uC694~"
+  - "\uAE97?! \uC544, \uC548\uB3FC! \uC57C\uD55C \uAC74 \uC0AC\uD615\uC774\uC57C
+    \uC0AC\uD615!"
+  - "\uC5F4\uC2EC\uC774\uAD70\uC694"
+  - "\uC774 \uBAA9\uC18C\uB9AC\uB294, \uD558\uC2A4\uBBF8 \uC120\uBC30?!"
+  - "\uB9C8\uCE68 \uC77C\uC774 \uB05D\uB098\uC11C \uBCF4\uB7EC \uC654\uC5B4\uC694"
+  - "\uB2E4\uB978 \uD559\uC0DD\uB4E4\uC774 \uCF54\uD558\uB8E8\uC758 \uC120\uB3C4
+    \uD65C\uB3D9\uC5D0 \uCE6D\uCC2C\uC774 \uC790\uC790\uD558\uB354\uB77C\uAD6C\uC694"
+  - "\uC800, \uC815\uB9D0\uC694?!"
+  - "\uB124. \uB2E4\uB4E4 \uB300\uB2E8\uD558\uB2E4\uACE0 \uB9D0\uD558\uB354\uB77C\uAD6C\uC694.
+    \uD798\uB4E4\uACA0\uC9C0\uB9CC \uC55E\uC73C\uB85C\uB3C4 \uC774\uB807\uAC8C\uB9CC
+    \uD574\uC8FC\uC138\uC694"
+  - "\uB300\uB2E8\uD574, \uD5E4\uD5E4, \uB124! \uC800 \uC5F4\uC2EC\uD788 \uD560\uAC8C\uC694!"
+  - "\uB0B4\uC77C\uB3C4 \uD798\uB0B4\uB824\uBA74 \uC5ED\uC2DC \uB9C8\uC0AC\uC9C0\uAC00
+    \uD544\uC694\uD558\uC9C0 \uC54A\uC744\uAE4C\uC694?"
+  - "\uD544 \uC694 \uC5C6 \uAC70 \uB4E0!"

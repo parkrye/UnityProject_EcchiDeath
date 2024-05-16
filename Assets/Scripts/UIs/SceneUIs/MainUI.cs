@@ -19,6 +19,7 @@ public class MainUI : SceneUI
     public UnityEvent<bool> OnJudgeEvent = new UnityEvent<bool>();
 
     private bool _isShowEnd = false;
+    private bool _isDanger = false;
 
     protected override void AwakeSelf()
     {
@@ -35,15 +36,27 @@ public class MainUI : SceneUI
 
         if (GetButton("PassButton", out var pButton))
         {
-            pButton.onClick.AddListener(() => OnJudgeEvent?.Invoke(false));
+            pButton.onClick.AddListener(() =>
+            {
+                pButton.interactable = false;
+                OnJudgeEvent?.Invoke(false);
+                pButton.interactable = true;
+            });
         }
         if (GetButton("DeathButton", out var dButton))
         {
-            dButton.onClick.AddListener(() => OnJudgeEvent?.Invoke(true));
+            dButton.onClick.AddListener(() =>
+            {
+                dButton.interactable = false;
+                OnJudgeEvent?.Invoke(true);
+                dButton.interactable = true;
+            });
         }
         if (GetButton("TalkButton", out var tButton))
         {
+            tButton.interactable = false;
             tButton.onClick.AddListener(() => OnTalkEvent?.Invoke());
+            tButton.interactable = true;
         }
     }
 
@@ -57,9 +70,10 @@ public class MainUI : SceneUI
         }
     }
 
-    public void OnStartGame(int targetCount)
+    public void OnStartGame(int targetCount, bool isDanger = false)
     {
         _animator.Play("StartAnim");
+        _isDanger = isDanger;
 
         if (GetImage("TalkerIcon", out var tImage))
         {
@@ -135,7 +149,18 @@ public class MainUI : SceneUI
             var result = new StringBuilder();
             foreach( var element in targetData.Elements)
             {
-                result.AppendLine(GameData.JudgeElements[element].GetDescription());
+                if (_isDanger == false)
+                {
+                    result.AppendLine(GameData.JudgeElements[element].GetDescription());
+                    continue;
+                }
+
+                if (GameData.JudgeElements[element].EcchiPoint > 0)
+                    result.AppendLine($"<color=red>{GameData.JudgeElements[element].GetDescription()}</color>");
+                else if (GameData.JudgeElements[element].EcchiPoint == 0)
+                    result.AppendLine($"<color=black>{GameData.JudgeElements[element].GetDescription()}</color>");
+                else
+                    result.AppendLine($"<color=blue>{GameData.JudgeElements[element].GetDescription()}</color>");
             }
             tcText.text = result.ToString();
         }

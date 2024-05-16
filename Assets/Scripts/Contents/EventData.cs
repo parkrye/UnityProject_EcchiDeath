@@ -16,5 +16,11 @@ public enum EventType
 {
     Opening,
     DayStart,
-    DayEnd,
+    DayEnd_Good,
+    DayEnd_Bad_Good,
+    DayEnd_Bad_Normal,
+    DayEnd_Bad_Bad,
+    Ending_Good,
+    Ending_Normal,
+    Ending_Bad,
 }

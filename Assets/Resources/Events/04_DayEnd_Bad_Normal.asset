@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5208ea8879c1d468f08a454c790321, type: 3}
+  m_Name: 04_DayEnd_Bad_Normal
+  m_EditorClassIdentifier: 
+  Talkers: 000000000000000001000000010000000100000001000000000000000000000001000000010000000000000001000000
+  Contents:
+  - "\uC73C\uC73C...\uC624\uB298 \uB108\uBB34 \uC77C\uC744 \uBABB\uD55C \uAC83 \uAC19\uC544..."
+  - "\uC774\uB300\uB85C\uB294 \uD558\uC2A4\uBBF8 \uC120\uBC30\uB97C \uBD50 \uBA74\uBAA9\uC774
+    \uC5C6\uC5B4..."
+  - "\uAD1C\uCC2E\uC544\uC694 \uCF54\uD558\uB8E8 \uCA29"
+  - "\uC0AC\uB78C\uC740 \uB204\uAD6C\uB098 \uC2E4\uC218\uD560 \uC218 \uC788\uC5B4\uC694"
+  - "\uC911\uC694\uD55C \uAC74 \uC55E\uC73C\uB85C \uC5B4\uB5BB\uAC8C \uD558\uB290\uB0D0\uB294
+    \uAC70\uC8E0"
+  - "\uCF54\uD558\uB8E8 \uCA29\uC740 \uC774\uB300\uB85C \uBAA8\uB450 \uD3EC\uAE30\uD560
+    \uAC74\uAC00\uC694?"
+  - "...\uC73C\uC74F!"
+  - "\uD558\uB098\uCF54! \uB0B4\uC77C\uC740 \uB354 \uC5F4\uC2EC\uD788 \uD558\uC790!"
+  - "\uB124. \uADF8 \uBAA8\uC2B5\uC774\uC5D0\uC694"
+  - "\uC55E\uC73C\uB85C \uB354 \uC5F4\uC2EC\uD788 \uC57C\uD55C \uC9D3\uC744 \uC9C0\uCF1C\uBCF4\uC8E0\u2661"
+  - "\uADF8\uB798 \uB9DE\uC544! \uC55E\uC73C\uB85C \uB354 \uC5F4\uC2EC\uD788 \uC57C\uD55C
+    \uC9D3\uC744...\uC544\uB0D0! \uD2C0\uB824!"
+  - "\uD6C4\uD6C4..."

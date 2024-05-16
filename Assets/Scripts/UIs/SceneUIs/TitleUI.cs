@@ -13,7 +13,7 @@ public class TitleUI : SceneUI
         if (GetButton("QuitButton", out var qButton))
             qButton.onClick.AddListener(() =>
             {
-                var spUI = GameManager.UI.ShowPopupUI<SelectPopUpUI>("UIs/SelectPopUpUI");
+                var spUI = GameManager.UI.ShowPopupUI<SelectPopUpUI>("SelectPopUpUI");
                 spUI.Init(
                     "정말로 종료할 거야?",
                     () => Application.Quit(),

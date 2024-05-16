@@ -36,6 +36,14 @@ public class DataManager : BaseManager
         PlayData.Score = score;
     }
 
+    public void ResetData()
+    {
+        PlayData.Date = 0;
+        PlayData.PassCount = 0;
+        PlayData.DeathCount = 0;
+        PlayData.Score = 0;
+    }
+
     private void AddJudgeElements()
     {
         var haveElements = new (string name, int value)[]

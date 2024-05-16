@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine.EventSystems;
 
 public class UIManager : BaseManager
@@ -23,12 +24,14 @@ public class UIManager : BaseManager
 
     public T ShowPopupUI<T>(string path) where T : PopUpUI
     {
-        T uI = GameManager.Resource.Load<T>(path);
+        T uI = GameManager.Resource.Load<T>($"UIs/{path}");
         return ShowPopupUI(uI);
     }
 
     public void ClosePopupUI()
     {
-        GameManager.Pool.ReleaseUI(_popUpStack.Pop());
+        _popUpStack.TryPop(out var result);
+        if (result != null)
+            GameManager.Pool.ReleaseUI(result);
     }
 }
