@@ -12,7 +12,6 @@ public abstract class BaseUI : MonoBehaviour
     private Dictionary<string, Image> _images = new Dictionary<string, Image>();
     private Dictionary<string, Slider> _sliders = new Dictionary<string, Slider>();
     private Dictionary<string, ScrollRect> _scrolls = new Dictionary<string, ScrollRect>();
-    //[SerializeField] protected AudioSource clickAudio;
 
     [SerializeField] private AudioSource _buttonClickSound;
 
@@ -46,7 +45,10 @@ public abstract class BaseUI : MonoBehaviour
                 if (btn)
                 {
                     if (!_buttons.ContainsKey(key))
+                    {
                         _buttons[key] = btn;
+                        btn.onClick.AddListener(() => _buttonClickSound.Play());
+                    }
                 }
 
                 var txt = childrenRect[i].GetComponent<TMP_Text>();
