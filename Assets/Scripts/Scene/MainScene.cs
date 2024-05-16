@@ -50,7 +50,7 @@ public class MainScene : BaseScene
             date = (int)(date * 0.1f);
             modifier++;
         }
-        var count = modifier * 10;
+        var count = modifier * 5;
         _targets = new TargetData[count];
         for (int i = 0; i < count; i++)
         {
