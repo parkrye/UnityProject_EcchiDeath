@@ -27,9 +27,14 @@ public class MainScene : BaseScene
             GameManager.Data.SetPlayerData(date: 1);
             _eventIndex = (int)EventType.Opening;
         }
-        else
+        else if (GameManager.Data.PlayData.Date <= 30)
         {
             GameManager.Data.AddPlayerData(date: 1);
+            _eventIndex = (int)EventType.DayStart;
+        }
+        else
+        {
+            GameManager.Data.SetPlayerData(date: 31);
             _eventIndex = (int)EventType.DayStart;
         }
         _mainUI.InitUI();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e482f180492a8a544845ee9cfca08350, type: 3}
   m_Name: PlayData
   m_EditorClassIdentifier: 
-  Date: 0
-  PassCount: 0
-  DeathCount: 0
-  Score: 0
+  Date: 2
+  PassCount: 3
+  DeathCount: 2
+  Score: 1
