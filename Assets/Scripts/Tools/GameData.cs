@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SimpleTalkEnum
+{
+    JudgeDeath,
+    JudgePass,
+    JudgeTimeout,
+}
+
 public static class GameData
 {
     public static readonly List<JudgeElement> JudgeElements = new List<JudgeElement>();
@@ -25,6 +32,13 @@ public static class GameData
         }
         return result;
     }
+
+    public static (Talker talker, string content)[] SimpleTalk = new (Talker talker, string content)[]
+    {
+        (Talker.Koharu, "야한 건 안돼! 사형!"),
+        (Talker.Koharu, "이건...이 정도는 보류..."),
+        (Talker.Koharu, "읏...으읏...! 사형!"),
+    };
 }
 
 public class JudgeElement

@@ -97,11 +97,13 @@ public class MainScene : BaseScene
         {
             _deathCount++;
             GameManager.Data.AddPlayerData(deathCount: 1, score: isGuilty == _targets[_targetIndex].IsGuilty ? 1 : -1);
+            _mainUI.Talk(GameData.SimpleTalk[(int)SimpleTalkEnum.JudgeDeath]);
         }
         else
         {
             _passCount++;
             GameManager.Data.AddPlayerData(passCount: 1, score: isGuilty == _targets[_targetIndex].IsGuilty ? 1 : -1);
+            _mainUI.Talk(GameData.SimpleTalk[(int)SimpleTalkEnum.JudgePass]);
         }
 
         _targetIndex++;
@@ -135,6 +137,9 @@ public class MainScene : BaseScene
         }
 
         if (current == _targetIndex)
+        {
             JudgeAction(true);
+            _mainUI.Talk(GameData.SimpleTalk[(int)SimpleTalkEnum.JudgeTimeout]);
+        }
     }
 }
