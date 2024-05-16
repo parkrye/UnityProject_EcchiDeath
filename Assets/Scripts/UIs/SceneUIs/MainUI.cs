@@ -155,4 +155,12 @@ public class MainUI : SceneUI
     {
         _isShowEnd = true;
     }
+
+    public void OnModifyTimer(float ratio)
+    {
+        if (GetSlider("TimeSlider", out var slider))
+        {
+            slider.value = ratio;
+        }
+    }
 }

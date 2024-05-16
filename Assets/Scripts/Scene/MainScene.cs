@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public class MainScene : BaseScene
@@ -73,6 +72,8 @@ public class MainScene : BaseScene
                 return;
             }
             _mainUI.OnStartGame(_targets.Length);
+            StopAllCoroutines();
+            StartCoroutine(Timer());
             _mainUI.ShowNextTarget(_targets[_targetIndex]);
             _contentIndex = 0;
             return;
@@ -115,7 +116,25 @@ public class MainScene : BaseScene
         }
         else
         {
+            StopAllCoroutines();
+            StartCoroutine(Timer());
             _mainUI.ShowNextTarget(_targets[_targetIndex], true);
         }
+    }
+
+    private IEnumerator Timer()
+    {
+        var current = _targetIndex;
+        var timer = 1f;
+        while (current == _targetIndex && timer > 0f)
+        {
+            if (current == _targetIndex)
+                _mainUI.OnModifyTimer(timer);
+            timer -= Time.deltaTime * 0.1f;
+            yield return null;
+        }
+
+        if (current == _targetIndex)
+            JudgeAction(true);
     }
 }

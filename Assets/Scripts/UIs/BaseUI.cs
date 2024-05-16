@@ -10,6 +10,7 @@ public abstract class BaseUI : MonoBehaviour
     private Dictionary<string, TMP_Text> _texts = new Dictionary<string, TMP_Text>();
     private Dictionary<string, TMP_InputField> _inputFields = new Dictionary<string, TMP_InputField>();
     private Dictionary<string, Image> _images = new Dictionary<string, Image>();
+    private Dictionary<string, Slider> _sliders = new Dictionary<string, Slider>();
     //[SerializeField] protected AudioSource clickAudio;
 
     [SerializeField] private AudioSource _buttonClickSound;
@@ -40,32 +41,39 @@ public abstract class BaseUI : MonoBehaviour
             {
                 _rects[key] = childrenRect[i];
 
-                Button btn = childrenRect[i].GetComponent<Button>();
+                var btn = childrenRect[i].GetComponent<Button>();
                 if (btn)
                 {
                     if (!_buttons.ContainsKey(key))
                         _buttons[key] = btn;
                 }
 
-                TMP_Text txt = childrenRect[i].GetComponent<TMP_Text>();
+                var txt = childrenRect[i].GetComponent<TMP_Text>();
                 if (txt)
                 {
                     if (!_texts.ContainsKey(key))
                         _texts[key] = txt;
                 }
 
-                TMP_InputField input = childrenRect[i].GetComponent<TMP_InputField>();
+                var input = childrenRect[i].GetComponent<TMP_InputField>();
                 if (input)
                 {
                     if (!_texts.ContainsKey(key))
                         _inputFields[key] = input;
                 }
 
-                Image img = childrenRect[i].GetComponent<Image>();
+                var img = childrenRect[i].GetComponent<Image>();
                 if (img)
                 {
                     if (!_images.ContainsKey(key))
                         _images[key] = img;
+                }
+
+                var sld = childrenRect[i].GetComponent<Slider>();
+                if (sld)
+                {
+                    if (!_sliders.ContainsKey(key))
+                        _sliders[key] = sld;
                 }
             }
         }
@@ -124,6 +132,13 @@ public abstract class BaseUI : MonoBehaviour
     public bool GetImage(string name, out Image result)
     {
         if (_images.TryGetValue(name, out result))
+            return true;
+        return false;
+    }
+
+    public bool GetSlider(string name, out Slider result)
+    {
+        if (_sliders.TryGetValue(name, out result))
             return true;
         return false;
     }
