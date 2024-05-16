@@ -54,9 +54,34 @@ public class MainUI : SceneUI
         }
         if (GetButton("TalkButton", out var tButton))
         {
-            tButton.interactable = false;
-            tButton.onClick.AddListener(() => OnTalkEvent?.Invoke());
-            tButton.interactable = true;
+            tButton.onClick.AddListener(() =>
+            {
+                tButton.interactable = false;
+                OnTalkEvent?.Invoke();
+                tButton.interactable = true;
+            });
+        }
+
+        if (GetButton("QuitButton", out var qButton))
+        {
+            qButton.onClick.AddListener(() =>
+            {
+                Time.timeScale = 0f;
+                var spUI = GameManager.UI.ShowPopupUI<SelectPopUpUI>("SelectPopUpUI");
+                spUI.Init(
+                    "잠깐 쉬었다 할까?",
+                    () =>
+                    {
+                        Time.timeScale = 1f;
+                        GameManager.Scene.LoadScene("TitleScene");
+                    },
+                    () =>
+                    {
+                        Time.timeScale = 1f;
+                        GameManager.UI.ClosePopupUI();
+                    }
+                );
+            });
         }
     }
 
