@@ -132,13 +132,17 @@ public class MainUI : SceneUI
 
         if (GetText("TargetContentText", out var tcText))
         {
-            tcText.text = string.Empty;
             var result = new StringBuilder();
             foreach( var element in targetData.Elements)
             {
                 result.AppendLine(GameData.JudgeElements[element].GetDescription());
             }
             tcText.text = result.ToString();
+        }
+
+        if (GetScroll("TargetScroll", out var tScroll))
+        {
+            tScroll.normalizedPosition = Vector2.one;
         }
     }
 

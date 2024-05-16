@@ -11,6 +11,7 @@ public abstract class BaseUI : MonoBehaviour
     private Dictionary<string, TMP_InputField> _inputFields = new Dictionary<string, TMP_InputField>();
     private Dictionary<string, Image> _images = new Dictionary<string, Image>();
     private Dictionary<string, Slider> _sliders = new Dictionary<string, Slider>();
+    private Dictionary<string, ScrollRect> _scrolls = new Dictionary<string, ScrollRect>();
     //[SerializeField] protected AudioSource clickAudio;
 
     [SerializeField] private AudioSource _buttonClickSound;
@@ -74,6 +75,13 @@ public abstract class BaseUI : MonoBehaviour
                 {
                     if (!_sliders.ContainsKey(key))
                         _sliders[key] = sld;
+                }
+
+                var scr = childrenRect[i].GetComponent<ScrollRect>();
+                if (scr)
+                {
+                    if (!_scrolls.ContainsKey(key))
+                        _scrolls[key] = scr;
                 }
             }
         }
@@ -139,6 +147,13 @@ public abstract class BaseUI : MonoBehaviour
     public bool GetSlider(string name, out Slider result)
     {
         if (_sliders.TryGetValue(name, out result))
+            return true;
+        return false;
+    }
+
+    public bool GetScroll(string name, out ScrollRect result)
+    {
+        if (_scrolls.TryGetValue(name, out result))
             return true;
         return false;
     }
