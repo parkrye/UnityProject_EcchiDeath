@@ -15,9 +15,9 @@ public class DataManager : BaseManager
 
         var judgeElements = new JudgeElement[] 
         { 
-            new JudgeElement("테스트용 처형 대상", 1),
-            new JudgeElement("테스트용 보류 대상", -1),
-            new JudgeElement("테스트용 무의미 대상", 0),
+            new JudgeElement("{0} 소지", 1, "야한 책"),
+            new JudgeElement("{0} 소지", -1, "성경"),
+            new JudgeElement("{0}, {1} 소지", 0, "야한 책", "성경"),
         };
         GameData.JudgeElements.AddRange(judgeElements);
 

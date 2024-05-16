@@ -134,7 +134,7 @@ public class MainUI : SceneUI
             var result = new StringBuilder();
             foreach( var element in targetData.Elements)
             {
-                result.AppendLine(GameData.JudgeElements[element].Name);
+                result.AppendLine(GameData.JudgeElements[element].GetDescription());
             }
             tcText.text = result.ToString();
         }

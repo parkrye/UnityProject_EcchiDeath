@@ -29,12 +29,21 @@ public static class GameData
 
 public class JudgeElement
 {
-    public string Name;
+    public string Description;
     public int EcchiPoint;
+    public string[] Parameters;
 
-    public JudgeElement(string name, int ecchiPoint)
+    public JudgeElement(string description, int ecchiPoint, params string[] parameters)
     {
-        Name = name;
+        Description = description;
         EcchiPoint = ecchiPoint;
+        Parameters = parameters;
+    }
+
+    public string GetDescription()
+    {
+        if (Parameters == null)
+            return Description;
+        return string.Format(Description, Parameters);
     }
 }
