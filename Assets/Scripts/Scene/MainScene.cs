@@ -19,6 +19,17 @@ public class MainScene : BaseScene
 
         _mainUI.OnJudgeEvent.AddListener(JudgeAction);
         _mainUI.OnTalkEvent.AddListener(TalkAction);
+
+        if (GameManager.Data.PlayData.Date == 0)
+        {
+            GameManager.Data.SetPlayerData(date: 1);
+            _eventIndex = (int)EventType.Opening;
+        }
+        else
+        {
+            GameManager.Data.AddPlayerData(date: 1);
+            _eventIndex = (int)EventType.DayStart;
+        }
         _mainUI.InitUI();
 
         _contentIndex = 0;
@@ -32,17 +43,6 @@ public class MainScene : BaseScene
     {
         base.StartScenePlayables();
 
-        if (GameManager.Data.PlayData.Date == 0)
-        {
-            GameManager.Data.SetPlayerData(date: 1);
-            _eventIndex = (int)EventType.Opening;
-        }
-        else
-        {
-            GameManager.Data.AddPlayerData(date: 1);
-            _eventIndex = (int)EventType.DayStart;
-        }
-
         var modifier = 0;
         var date = GameManager.Data.PlayData.Date;
         while (date >= 1)
@@ -50,11 +50,11 @@ public class MainScene : BaseScene
             date = (int)(date * 0.1f);
             modifier++;
         }
-        var count = modifier * 5;
+        var count = modifier * 10;
         _targets = new TargetData[count];
         for (int i = 0; i < count; i++)
         {
-            _targets[i] = new TargetData(modifier * 5);
+            _targets[i] = new TargetData(modifier * 2);
         }
 
         TalkAction();
