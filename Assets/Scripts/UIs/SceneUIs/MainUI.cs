@@ -2,12 +2,12 @@
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
-using static System.Collections.Specialized.BitVector32;
 
 public enum Talker
 {
     Koharu,
     Hanako,
+    Hasumi,
 }
 
 public class MainUI : SceneUI
@@ -28,6 +28,7 @@ public class MainUI : SceneUI
         {
             (GameManager.Resource.Load<Sprite>("Sprites/Main/Koharu"), "코하루"),
             (GameManager.Resource.Load<Sprite>("Sprites/Main/Hanako"), "하나코"),
+            (GameManager.Resource.Load<Sprite>("Sprites/Main/Hasumi"), "하스미"),
         };
 
         _animator = GetComponent<Animator>();
